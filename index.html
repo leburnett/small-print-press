@@ -163,7 +163,7 @@
     margin-bottom: 1.8rem;
     padding: 0.3em 0.6em;
     background: white;
-    border-radius: 4px;
+    border-radius: 6px;
     display: inline-block;
     opacity: 0;
     animation: fadeUp 1s ease 0.5s forwards;
@@ -204,7 +204,7 @@
 
   .hero-cta a:hover {
     background: var(--warm-white);
-    color: var(--ink);
+    color: var(--accent);
   }
 
   /* Envelope Animation Layer */
@@ -722,7 +722,7 @@
   <div class="hero-text">
     <h1 class="hero-title">SMALL PRINT PRESS</h1>
     <p class="hero-tagline"><em>Pass-it-along</em> Print Club</p>
-    <p class="hero-subtitle">A monthly envelope of hand-carved linocut print, a letter and a postcard to pass along — because the important stuff is often overlooked.</p>
+    <p class="hero-subtitle">A monthly envelope of hand-carved linocut art, a letter, and a postcard to pass along — celebrating the important stuff that's often overlooked.</p>
     <div class="hero-cta">
       <a href="#join">Join the Club</a>
     </div>
@@ -754,9 +754,9 @@
 <section class="about" id="about">
   <div class="about-inner">
     <div class="section-label" data-animate>About the Club</div>
-    <h2 class="about-heading" data-animate>A small packet of joy,<br>delivered to your door each month.</h2>
-    <p class="about-text" data-animate>Small Print Press is a monthly pass-it-along print club for people who believe small things are the best things and the best things are often the small things. Each month, you'll receive a hand-carved linocut print — something small, detailed, and made with care.</p>
-    <p class="about-text" data-animate>Every envelope also contains a postcard version of the print, designed to be sent on to someone else to let them know you're thinking of them and spread a little love.</p>
+    <h2 class="about-heading" data-animate>A small parcel of wonder,<br>delivered to your door each month.</h2>
+    <p class="about-text" data-animate>Small Print Press is a monthly pass-it-along print club for people who believe the best things are often the most overlooked. Each month, you'll receive a hand-carved linocut print — something small, detailed, and made with care — inspired by the important stuff that's often overlooked.</p>
+    <p class="about-text" data-animate>Every envelope also contains a postcard version of the print, designed to be sent on to someone you're thinking of. Because the best way to stay connected isn't always a text message — sometimes it's something you can hold.</p>
 
     <div class="receive-grid">
       <div class="receive-item" data-animate>
@@ -786,7 +786,7 @@
           <line x1="15" y1="21" x2="22" y2="21" opacity="0.5"/>
         </svg>
         <div class="receive-title">A letter</div>
-        <div class="receive-desc">A few words about the print, the inspiration behind it and some current musings.</div>
+        <div class="receive-desc">A few words about the print, the inspiration behind it, and the small wonder it celebrates.</div>
       </div>
     </div>
   </div>
@@ -798,10 +798,15 @@
     <div class="section-label" data-animate>Join</div>
     <h2 class="signup-heading" data-animate>Be the first to know<br>when we open our doors.</h2>
     <p class="signup-subtext" data-animate>Leave your email and we'll let you know the moment subscriptions are open.</p>
-    <div class="email-form" id="emailForm" data-animate>
-      <input type="email" id="emailInput" placeholder="Your email address" required>
-      <button type="button" id="submitBtn">Join Waitlist</button>
-    </div>
+    <form class="email-form" id="emailForm" data-animate
+      action="https://buttondown.com/api/emails/embed-subscribe/smallprintpress"
+      method="post"
+      target="_blank"
+    >
+      <input type="email" name="email" id="emailInput" placeholder="Your email address" required>
+      <input type="hidden" name="embed" value="1">
+      <button type="submit" id="submitBtn">Join Waitlist</button>
+    </form>
     <div class="form-success" id="formSuccess">
       Welcome — you're on the list! ✦
     </div>
@@ -812,7 +817,7 @@
 <!-- FOOTER -->
 <footer>
   <span>© 2026 Small Print Press</span>
-  <a href="mailto:smallprintpressart@gmail.com">smallprintpressart@gmail.com</a>
+  <a href="mailto:hello@smallprintpress.art">hello@smallprintpress.art</a>
 </footer>
 
 <script>
@@ -860,29 +865,14 @@ gallery.addEventListener('mousemove', (e) => {
   gallery.scrollLeft = scrollLeft - walk;
 });
 
-// ——— Email form ———
-document.getElementById('submitBtn').addEventListener('click', () => {
+// ——— Email form (Buttondown) ———
+document.getElementById('emailForm').addEventListener('submit', (e) => {
   const input = document.getElementById('emailInput');
-  const form = document.getElementById('emailForm');
-  const success = document.getElementById('formSuccess');
-  const note = document.getElementById('formNote');
 
-  if (input.value && input.value.includes('@') && input.value.includes('.')) {
-    form.style.display = 'none';
-    note.style.display = 'none';
-    success.style.display = 'block';
-  } else {
+  if (!input.value || !input.value.includes('@') || !input.value.includes('.')) {
+    e.preventDefault();
     input.style.boxShadow = 'inset 0 0 0 2px var(--accent)';
-    setTimeout(() => {
-      input.style.boxShadow = '';
-    }, 1500);
-  }
-});
-
-// Allow Enter key to submit
-document.getElementById('emailInput').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    document.getElementById('submitBtn').click();
+    setTimeout(() => { input.style.boxShadow = ''; }, 1500);
   }
 });
 </script>
