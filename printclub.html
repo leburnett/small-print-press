@@ -71,6 +71,11 @@
     transition: color 0.4s ease;
   }
 
+  .nav-logo a {
+    color: inherit;
+    text-decoration: none;
+  }
+
   nav.scrolled .nav-logo {
     color: var(--ink);
   }
@@ -270,53 +275,6 @@
     height: 30px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), transparent);
     animation: scrollPulse 2s ease-in-out infinite;
-  }
-
-  /* ═══════════════════════════════════════
-     GALLERY SECTION
-  ═══════════════════════════════════════ */
-  .gallery {
-    padding: 3rem 0;
-    background: var(--cream);
-    overflow: hidden;
-  }
-
-  .gallery-scroll {
-    display: flex;
-    gap: 1.2rem;
-    padding: 0 3rem;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: contain;
-    scrollbar-width: thin;
-    scrollbar-color: var(--ink-faint) transparent;
-    cursor: grab;
-  }
-
-  .gallery-scroll:active {
-    cursor: grabbing;
-  }
-
-  .gallery-scroll::-webkit-scrollbar {
-    height: 4px;
-  }
-
-  .gallery-scroll::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .gallery-scroll::-webkit-scrollbar-thumb {
-    background: var(--ink-faint);
-    border-radius: 2px;
-  }
-
-  .gallery-item {
-    flex: 0 0 280px;
-    height: 280px;
-    border-radius: 4px;
-    scroll-snap-align: start;
   }
 
   /* ═══════════════════════════════════════
@@ -640,13 +598,6 @@
       gap: 2.5rem;
     }
     .signup { padding: 5rem 1.8rem; }
-    .gallery-item {
-      flex: 0 0 220px;
-      height: 220px;
-    }
-    .gallery-scroll {
-      padding: 0 1.5rem;
-    }
     .email-form {
       flex-direction: column;
       gap: 0.75rem;
@@ -666,10 +617,10 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo">Small Print Press</div>
+  <div class="nav-logo"><a href="/">Small Print Press</a></div>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#join">Join</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/printclub.html">Print Club</a></li>
     <li><a href="#" class="nav-icon" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a></li>
   </ul>
 </nav>
@@ -731,22 +682,6 @@
   <div class="scroll-hint">
     <span>Scroll</span>
     <div class="scroll-line"></div>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<section class="gallery">
-  <div class="gallery-scroll">
-    <div class="gallery-item" style="background: #D4A574;"></div>
-    <div class="gallery-item" style="background: #8B9E7E;"></div>
-    <div class="gallery-item" style="background: #C4704B;"></div>
-    <div class="gallery-item" style="background: #5C6B7A;"></div>
-    <div class="gallery-item" style="background: #B5846B;"></div>
-    <div class="gallery-item" style="background: #7A8B6E;"></div>
-    <div class="gallery-item" style="background: #9E7B6B;"></div>
-    <div class="gallery-item" style="background: #6B7D8E;"></div>
-    <div class="gallery-item" style="background: #C4956B;"></div>
-    <div class="gallery-item" style="background: #8E7B6B;"></div>
   </div>
 </section>
 
@@ -841,28 +776,6 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('[data-animate]').forEach(el => {
   observer.observe(el);
-});
-
-// ——— Gallery drag scroll ———
-const gallery = document.querySelector('.gallery-scroll');
-let isDown = false;
-let startX;
-let scrollLeft;
-
-gallery.addEventListener('mousedown', (e) => {
-  isDown = true;
-  startX = e.pageX - gallery.offsetLeft;
-  scrollLeft = gallery.scrollLeft;
-});
-
-gallery.addEventListener('mouseleave', () => { isDown = false; });
-gallery.addEventListener('mouseup', () => { isDown = false; });
-gallery.addEventListener('mousemove', (e) => {
-  if (!isDown) return;
-  e.preventDefault();
-  const x = e.pageX - gallery.offsetLeft;
-  const walk = (x - startX) * 1.5;
-  gallery.scrollLeft = scrollLeft - walk;
 });
 
 // ——— Email form (Buttondown) ———
