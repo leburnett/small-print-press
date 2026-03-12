@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Small Print Press</title>
+<title>About — Small Print Press</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='white'/><rect x='22' y='32' width='56' height='36' rx='3' fill='none' stroke='%231A1A1A' stroke-width='3'/><path d='M22,34 L50,55 L78,34' fill='none' stroke='%231A1A1A' stroke-width='3' stroke-linejoin='round'/></svg>" type="image/svg+xml">
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Source+Serif+4:wght@300;400&display=swap" rel="stylesheet">
 <style>
@@ -26,9 +26,6 @@
     min-height: 100vh;
   }
 
-  /* ═══════════════════════════════════════
-     NAV
-  ═══════════════════════════════════════ */
   nav {
     position: fixed;
     top: 0;
@@ -81,10 +78,7 @@
     align-items: center;
   }
 
-  /* ═══════════════════════════════════════
-     HERO
-  ═══════════════════════════════════════ */
-  .hero {
+  .content {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -94,44 +88,29 @@
     padding: 0 2rem;
   }
 
-  .hero-title {
-    font-family: 'Source Serif 4', serif;
+  .content h1 {
+    font-family: 'Crimson Pro', serif;
     font-weight: 300;
-    font-size: clamp(1.1rem, 2.4vw, 1.75rem);
-    line-height: 1.1;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
+    font-size: 2rem;
     color: var(--ink);
-    padding: 0.4rem 1rem;
-    border: 1.75px solid var(--ink);
-    display: inline-block;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     opacity: 0;
     animation: fadeUp 1s ease 0.3s forwards;
   }
 
-  .hero-subtitle {
-    font-family: 'Crimson Pro', serif;
+  .content p {
     font-weight: 300;
-    font-style: italic;
-    font-size: clamp(0.8rem, 1.6vw, 1rem);
+    font-size: 1rem;
     color: var(--ink-faint);
-    letter-spacing: 0.02em;
     opacity: 0;
-    animation: fadeUp 1s ease 0.6s forwards;
+    animation: fadeUp 1s ease 0.5s forwards;
   }
 
-  /* ═══════════════════════════════════════
-     ANIMATIONS
-  ═══════════════════════════════════════ */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(25px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ═══════════════════════════════════════
-     RESPONSIVE
-  ═══════════════════════════════════════ */
   @media (max-width: 768px) {
     nav { padding: 1.2rem 1.5rem; }
     .nav-links { gap: 1.5rem; }
@@ -151,10 +130,9 @@
   </ul>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <h1 class="hero-title">SMALL PRINT PRESS</h1>
-  <p class="hero-subtitle">'cause the important stuff is often overlooked</p>
+<section class="content">
+  <h1>About</h1>
+  <p>Coming soon.</p>
 </section>
 
 </body>
