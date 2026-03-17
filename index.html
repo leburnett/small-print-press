@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Small Print Press</title>
-<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Source+Serif+4:wght@300;400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -119,6 +119,91 @@
     letter-spacing: 0.02em;
     opacity: 0;
     animation: fadeUp 1s ease 0.6s forwards;
+    position: relative;
+    cursor: none;
+  }
+
+  /* ═══════════════════════════════════════
+     MAGNIFYING GLASS
+  ═══════════════════════════════════════ */
+  .magnifier {
+    position: fixed;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid var(--ink);
+    box-shadow: inset 0 0 0 3px white, inset 0 0 0 6px var(--ink);
+    pointer-events: none;
+    z-index: 50;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    background: white;
+  }
+
+  .magnifier.active {
+    opacity: 1;
+  }
+
+  .magnifier-handle {
+    position: fixed;
+    width: 14px;
+    height: 44px;
+    background: white;
+    border: 3px solid var(--ink);
+    border-radius: 3px;
+    pointer-events: none;
+    z-index: 49;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    transform-origin: top center;
+  }
+
+  .magnifier-handle::before,
+  .magnifier-handle::after {
+    content: '';
+    position: absolute;
+    left: 1px;
+    right: 1px;
+    height: 3px;
+    border-top: 2px solid var(--ink);
+  }
+
+  .magnifier-handle::before {
+    top: 4px;
+  }
+
+  .magnifier-handle::after {
+    top: 10px;
+  }
+
+  .magnifier-handle.active {
+    opacity: 1;
+  }
+
+  .magnifier-text {
+    position: absolute;
+    white-space: nowrap;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: clamp(1.6rem, 3.2vw, 2rem);
+    letter-spacing: 0.02em;
+  }
+
+  /* Glass glint */
+  .magnifier::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 14px;
+    width: 24px;
+    height: 18px;
+    border-left: 2px solid rgba(0, 0, 0, 0.12);
+    border-radius: 50%;
+    transform: rotate(-20deg);
+    pointer-events: none;
   }
 
   /* ═══════════════════════════════════════
@@ -145,8 +230,10 @@
 <nav>
   <div class="nav-logo"><a href="/">Small Print Press</a></div>
   <ul class="nav-links">
-    <li><a href="/about.html">About</a></li>
+    <li><a href="/portfolio.html">Portfolio</a></li>
     <li><a href="/printclub.html">Print Club</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
     <li><a href="#" class="nav-icon" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a></li>
   </ul>
 </nav>
@@ -156,6 +243,52 @@
   <h1 class="hero-title">SMALL PRINT PRESS</h1>
   <p class="hero-subtitle">'cause the important stuff is often overlooked</p>
 </section>
+
+<!-- MAGNIFIER -->
+<div class="magnifier" id="magnifier">
+  <span class="magnifier-text" id="magnifierText">'cause the important stuff is often overlooked</span>
+</div>
+<div class="magnifier-handle" id="magnifierHandle"></div>
+
+<script>
+const subtitle = document.querySelector('.hero-subtitle');
+const magnifier = document.getElementById('magnifier');
+const magnifierHandle = document.getElementById('magnifierHandle');
+const magnifierText = document.getElementById('magnifierText');
+const radius = 60;
+
+subtitle.addEventListener('mouseenter', () => {
+  magnifier.classList.add('active');
+  magnifierHandle.classList.add('active');
+});
+
+subtitle.addEventListener('mouseleave', () => {
+  magnifier.classList.remove('active');
+  magnifierHandle.classList.remove('active');
+});
+
+subtitle.addEventListener('mousemove', (e) => {
+  const magX = e.clientX - radius;
+  const magY = e.clientY - radius;
+  magnifier.style.left = magX + 'px';
+  magnifier.style.top = magY + 'px';
+
+  // Position handle at bottom-right of lens
+  const handleX = e.clientX + radius * 0.5 - 7;
+  const handleY = e.clientY + radius * 0.5;
+  magnifierHandle.style.left = handleX + 'px';
+  magnifierHandle.style.top = handleY + 'px';
+  magnifierHandle.style.transform = 'rotate(-45deg)';
+
+  // Position the magnified text relative to the original text
+  const subtitleRect = subtitle.getBoundingClientRect();
+  const scale = 2;
+  const textX = -(e.clientX - subtitleRect.left) * scale + radius;
+  const textY = -(e.clientY - subtitleRect.top) * scale + radius;
+  magnifierText.style.left = textX + 'px';
+  magnifierText.style.top = textY + 'px';
+});
+</script>
 
 </body>
 </html>
